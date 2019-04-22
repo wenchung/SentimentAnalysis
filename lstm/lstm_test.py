@@ -62,7 +62,7 @@ def input_transform(string):
     return combined
 
 
-def lstm_predict(string):
+def lstm_predict(strings):
     print('loading model......')
     with open('../model/lstm.yml', 'r') as f:
         yaml_string = yaml.load(f)
@@ -72,27 +72,30 @@ def lstm_predict(string):
     model.load_weights('../model/lstm.h5')
     model.compile(loss='categorical_crossentropy',
                   optimizer='adam',metrics=['accuracy'])
-    data=input_transform(string)
-    data.reshape(1,-1)
-    #print data
-    result=model.predict_classes(data)
-    # print result # [[1]]
-    if result[0]==1:
-        print(string,' positive')
-    elif result[0]==0:
-        print(string,' neural')
-    else:
-        print(string,' negative')
-
+    for string in strings:
+        print("="*20)
+        data=input_transform(string)
+        data.reshape(1,-1)
+        #print data
+        result=model.predict_classes(data)
+        # print result # [[1]]
+        if result[0]==1:
+            print(string,' positive')
+        elif result[0]==0:
+            print(string,' neural')
+        else:
+            print(string,' negative')
 
 if __name__=='__main__':
-    # string='酒店的環境非常好，價格也便宜，值得推薦'
-    # string='手機質量太差了，傻逼店家，賺黑心錢，以後再也不會買了'
-    # string = "這是我看過文字寫得很糟糕的書，因爲買了，還是耐着性子看完了，但是總體來說不好，文字、內容、結構都不好"
-    # string = "雖說是職場指導書，但是寫的有點乾澀，我讀一半就看不下去了！"
-    # string = "書的質量還好，但是內容實在沒意思。本以爲會側重心理方面的分析，但實際上是婚外戀內容。"
-    # string = "不是太好"
-    # string = "不錯不錯"
-    string = "真的一般，沒什麼可以學習的"
+    strings=[
+        '酒店的環境非常好，價格也便宜，值得推薦',
+        '手機質量太差了，傻逼店家，賺黑心錢，以後再也不會買了',
+        "這是我看過文字寫得很糟糕的書，因爲買了，還是耐着性子看完了，但是總體來說不好，文字、內容、結構都不好",
+        "雖說是職場指導書，但是寫的有點乾澀，我讀一半就看不下去了！",
+        "書的質量還好，但是內容實在沒意思。本以爲會側重心理方面的分析，但實際上是婚外戀內容。",
+        "不是太好",
+        "不錯不錯",
+        "真的一般，沒什麼可以學習的",
+    ]
     
-    lstm_predict(string)
+    lstm_predict(strings)
