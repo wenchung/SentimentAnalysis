@@ -3,7 +3,7 @@
   \ !!python/tuple [null, 100]\n      dtype: float32\n      embeddings_constraint:\
   \ null\n      embeddings_initializer:\n        class_name: RandomUniform\n     \
   \   config: {maxval: 0.05, minval: -0.05, seed: null}\n      embeddings_regularizer:\
-  \ null\n      input_dim: 8307\n      input_length: 100\n      mask_zero: true\n\
+  \ null\n      input_dim: 8441\n      input_length: 100\n      mask_zero: true\n\
   \      name: embedding_1\n      output_dim: 100\n      trainable: true\n  - class_name:\
   \ LSTM\n    config:\n      activation: tanh\n      activity_regularizer: null\n\
   \      bias_constraint: null\n      bias_initializer:\n        class_name: Zeros\n\
