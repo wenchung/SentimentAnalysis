@@ -1,4 +1,4 @@
-+++ issue
++++ issue: python3 lstm_train.py
 ----
   File "/usr/local/lib/python3.6/dist-packages/gensim/utils.py", line 912, in unpickle
     return _pickle.loads(f.read())
@@ -6,7 +6,7 @@ UnicodeDecodeError: 'ascii' codec can't decode byte 0xd1 in position 0: ordinal 
 ----
 sudo pip3 install -U gensim
 
-+++ issue
++++ issue: python3 lstm_test.py
 ----
 AttributeError: 'Word2Vec' object has no attribute 'vocab'
 ----
@@ -24,3 +24,22 @@ git clone https://github.com/skydark/nstools
 cp nstools/zhtools/zh_wiki.py .
 cp nstools/zhtools/langconv.py .
 python2 convert_zht.py
+
+
++++ issue: python3 lstm_train.py
+----
+  File "lstm_train.py", line 109, in word2vec_train
+    model.train(combined)
+  File "/usr/local/lib/python3.6/dist-packages/gensim/models/word2vec.py", line 910, in train
+    queue_factor=queue_factor, report_delay=report_delay, compute_loss=compute_loss, callbacks=callbacks)
+  File "/usr/local/lib/python3.6/dist-packages/gensim/models/base_any2vec.py", line 1081, in train
+    **kwargs)
+  File "/usr/local/lib/python3.6/dist-packages/gensim/models/base_any2vec.py", line 536, in train
+    total_words=total_words, **kwargs)
+  File "/usr/local/lib/python3.6/dist-packages/gensim/models/base_any2vec.py", line 1200, in _check_training_sanity
+    "You must specify either total_examples or total_words, for proper job parameters updation"
+ValueError: You must specify either total_examples or total_words, for proper job parameters updationand progress calculations. The usual value is total_examples=model.corpus_count.
+----
+-    model.train(combined)
++    model.train(combined, total_examples=model.corpus_count, epochs=model.iter)
+
