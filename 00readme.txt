@@ -1,3 +1,7 @@
++++ github
+https://github.com/Edward1Chou/SentimentAnalysis
+python2 => 改成 python3
+
 +++ issue: python3 lstm_train.py
 ----
   File "/usr/local/lib/python3.6/dist-packages/gensim/utils.py", line 912, in unpickle

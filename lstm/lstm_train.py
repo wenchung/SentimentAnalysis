@@ -32,7 +32,7 @@ vocab_dim = 100
 n_iterations = 1  # ideally more..
 n_exposures = 10 # 所有频数超过10的词语
 window_size = 7
-n_epoch = 4
+n_epoch = 40
 input_length = 100
 maxlen = 100
 
@@ -40,25 +40,41 @@ batch_size = 32
 
 
 def loadfile():
+    print("loadfile...")
     neg=pd.read_csv('../data/neg.csv',header=None,index_col=None)
     pos=pd.read_csv('../data/pos.csv',header=None,index_col=None,error_bad_lines=False)
     neu=pd.read_csv('../data/neutral.csv', header=None, index_col=None)
 
     combined = np.concatenate((pos[0], neu[0], neg[0]))
-    y = np.concatenate((np.ones(len(pos), dtype=int), np.zeros(len(neu), dtype=int), 
-                        -1*np.ones(len(neg),dtype=int)))
+    print("len(pos):",len(pos))
+    print("len(neg):",len(neg))
+    print("len(neu):",len(neu))
+    y = np.concatenate((
+            np.ones(len(pos), dtype=int),
+            np.zeros(len(neu), dtype=int), 
+            -1*np.ones(len(neg),dtype=int)
+        ))
 
+    #print("combined:",combined); #exit()
+    print("len(combined):",len(combined)); #exit()
+    #print("combined[0]:",combined[0],len(combined[0])); exit()
+    print("y:",y,len(y))
+    #exit()
     return combined,y
 
 
 #对句子经行分词，并去掉换行符
 def tokenizer(text):
+    print("tokenizer...")
     ''' Simple Parser converting each document to lower-case, then
         removing the breaks for new lines and finally splitting on the
         whitespace
     '''
-    text = [jieba.lcut(document.replace('\n', '')) for document in text]
-    return text
+    text0 = [jieba.lcut(document.replace('\n', '')) for document in text]
+    #print("tokenizer.text:",text)
+    #print("tokenizer.text0:",text0)
+    #exit()
+    return text0
 
 
 def create_dictionaries(model=None,
