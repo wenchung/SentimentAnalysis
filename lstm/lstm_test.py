@@ -28,7 +28,7 @@ def create_dictionaries(model=None,
     '''
     if (combined is not None) and (model is not None):
         gensim_dict = Dictionary()
-        gensim_dict.doc2bow(list(model.vocab.keys()),
+        gensim_dict.doc2bow(list(model.wv.vocab.keys()),
                             allow_update=True)
         #  freqxiao10->0 所以k+1
         w2indx = {v: k+1 for k, v in list(gensim_dict.items())}#所有频数超过10的词语的索引,(k->v)=>(v->k)
