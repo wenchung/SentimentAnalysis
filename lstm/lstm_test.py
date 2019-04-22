@@ -1,7 +1,7 @@
 #! /bin/env python
 # -*- coding: utf-8 -*-
 """
-预测
+預測
 """
 import jieba
 import numpy as np
@@ -31,10 +31,10 @@ def create_dictionaries(model=None,
         gensim_dict.doc2bow(list(model.wv.vocab.keys()),
                             allow_update=True)
         #  freqxiao10->0 所以k+1
-        w2indx = {v: k+1 for k, v in list(gensim_dict.items())}#所有频数超过10的词语的索引,(k->v)=>(v->k)
-        w2vec = {word: model[word] for word in list(w2indx.keys())}#所有频数超过10的词语的词向量, (word->model(word))
+        w2indx = {v: k+1 for k, v in list(gensim_dict.items())}#所有頻數超過10的詞語的索引,(k->v)=>(v->k)
+        w2vec = {word: model[word] for word in list(w2indx.keys())}#所有頻數超過10的詞語的詞向量, (word->model(word))
 
-        def parse_dataset(combined): # 闭包-->临时使用
+        def parse_dataset(combined): # 閉包-->臨時使用
             ''' Words become integers
             '''
             data=[]
@@ -48,7 +48,7 @@ def create_dictionaries(model=None,
                 data.append(new_txt)
             return data # word=>index
         combined=parse_dataset(combined)
-        combined= sequence.pad_sequences(combined, maxlen=maxlen)#每个句子所含词语对应的索引，所以句子中含有频数小于10的词语，索引为0
+        combined= sequence.pad_sequences(combined, maxlen=maxlen)#每個句子所含詞語對應的索引，所以句子中含有頻數小於10的詞語，索引爲0
         return w2indx, w2vec,combined
     else:
         print('No data provided...')
@@ -86,13 +86,13 @@ def lstm_predict(string):
 
 
 if __name__=='__main__':
-    # string='酒店的环境非常好，价格也便宜，值得推荐'
-    # string='手机质量太差了，傻逼店家，赚黑心钱，以后再也不会买了'
-    # string = "这是我看过文字写得很糟糕的书，因为买了，还是耐着性子看完了，但是总体来说不好，文字、内容、结构都不好"
-    # string = "虽说是职场指导书，但是写的有点干涩，我读一半就看不下去了！"
-    # string = "书的质量还好，但是内容实在没意思。本以为会侧重心理方面的分析，但实际上是婚外恋内容。"
+    # string='酒店的環境非常好，價格也便宜，值得推薦'
+    # string='手機質量太差了，傻逼店家，賺黑心錢，以後再也不會買了'
+    # string = "這是我看過文字寫得很糟糕的書，因爲買了，還是耐着性子看完了，但是總體來說不好，文字、內容、結構都不好"
+    # string = "雖說是職場指導書，但是寫的有點乾澀，我讀一半就看不下去了！"
+    # string = "書的質量還好，但是內容實在沒意思。本以爲會側重心理方面的分析，但實際上是婚外戀內容。"
     # string = "不是太好"
-    # string = "不错不错"
-    string = "真的一般，没什么可以学习的"
+    # string = "不錯不錯"
+    string = "真的一般，沒什麼可以學習的"
     
     lstm_predict(string)

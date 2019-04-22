@@ -43,3 +43,8 @@ ValueError: You must specify either total_examples or total_words, for proper jo
 -    model.train(combined)
 +    model.train(combined, total_examples=model.corpus_count, epochs=model.iter)
 
+
++++ OpenCC 簡轉繁
+# https://blog.darkthread.net/blog/opencc-notes-1/
+opencc -i lstm_test.py -o xx.py -c s2t.json
+mv xx.py lstm_test.py
