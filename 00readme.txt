@@ -15,3 +15,12 @@ Are you using the same version of gensim in both places? Gensim 1.0.0 moves voca
 model.vocab
 ...in gensim 1.0.0+ you should instead use (in Python 2 or 3)...
 model.wv.vocab
+
+
++++ Python 中簡轉繁、繁轉簡
+http://xken831.pixnet.net/blog/post/463639202-%5Bpython%5D-python-%E7%B0%A1%E8%BD%89%E7%B9%81%E3%80%81%E7%B9%81%E8%BD%89%E7%B0%A1
+cd data/
+git clone https://github.com/skydark/nstools
+cp nstools/zhtools/zh_wiki.py .
+cp nstools/zhtools/langconv.py .
+python2 convert_zht.py
