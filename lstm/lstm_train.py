@@ -32,7 +32,7 @@ vocab_dim = 100
 n_iterations = 1  # ideally more..
 n_exposures = 10 # 所有频数超过10的词语
 window_size = 7
-n_epoch = 40
+n_epoch = 8
 input_length = 100
 maxlen = 100
 

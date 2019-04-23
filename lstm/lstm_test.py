@@ -8,6 +8,7 @@ import numpy as np
 from gensim.models.word2vec import Word2Vec
 from gensim.corpora.dictionary import Dictionary
 from keras.preprocessing import sequence
+from langconv import Converter
 
 import yaml
 from keras.models import model_from_yaml
@@ -73,12 +74,14 @@ def lstm_predict(strings):
     model.compile(loss='categorical_crossentropy',
                   optimizer='adam',metrics=['accuracy'])
     for string in strings:
+        line = Converter('zh-hant').convert(string.encode().decode('utf-8'))
+        string0 = line.encode('utf-8')
         print("="*20)
-        data=input_transform(string)
+        data=input_transform(string0)
         data.reshape(1,-1)
         #print data
         result=model.predict_classes(data)
-        # print result # [[1]]
+        print(result) # [[1]]
         if result[0]==1:
             print(string,' positive')
         elif result[0]==0:
@@ -88,14 +91,14 @@ def lstm_predict(strings):
 
 if __name__=='__main__':
     strings=[
+        "不錯不錯",
+        "真的一般，沒什麼可以學習的",
         '酒店的環境非常好，價格也便宜，值得推薦',
         '手機質量太差了，傻逼店家，賺黑心錢，以後再也不會買了',
         "這是我看過文字寫得很糟糕的書，因爲買了，還是耐着性子看完了，但是總體來說不好，文字、內容、結構都不好",
         "雖說是職場指導書，但是寫的有點乾澀，我讀一半就看不下去了！",
         "書的質量還好，但是內容實在沒意思。本以爲會側重心理方面的分析，但實際上是婚外戀內容。",
         "不是太好",
-        "不錯不錯",
-        "真的一般，沒什麼可以學習的",
     ]
     
     lstm_predict(strings)
