@@ -58,7 +58,8 @@ def create_dictionaries(model=None,
 def input_transform(string):
     words=jieba.lcut(string)
     words=np.array(words).reshape(1,-1)
-    model=Word2Vec.load('../model/Word2vec_model.pkl')
+    #model=Word2Vec.load('../model/Word2vec_model.pkl')
+    model=Word2Vec.load('../lstm_data_test/Word2vec_model.pkl')
     _,_,combined=create_dictionaries(model,words)
     return combined
 
