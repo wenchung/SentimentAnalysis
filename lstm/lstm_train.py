@@ -122,7 +122,8 @@ def word2vec_train(combined):
                      workers=cpu_count,
                      iter=n_iterations)
     model.build_vocab(combined) # input: list
-    model.train(combined, total_examples=model.corpus_count, epochs=model.iter)
+    #DeprecationWarning: Call to deprecated `iter` (Attribute will be removed in 4.0.0, use self.epochs instead).
+    model.train(combined, total_examples=model.corpus_count, epochs=model.epochs)
     model.save('../lstm_data_test/Word2vec_model.pkl')
     index_dict, word_vectors,combined = create_dictionaries(model=model,combined=combined)
     return   index_dict, word_vectors,combined
