@@ -3,8 +3,12 @@
 """
 預測
 """
+#ImportError: DLL load failed: 找不到指定的模組。
+import pandas as pd 
+import numpy as np 
 import jieba
-import numpy as np
+import multiprocessing
+
 from gensim.models.word2vec import Word2Vec
 from gensim.corpora.dictionary import Dictionary
 from keras.preprocessing import sequence
@@ -33,7 +37,8 @@ def create_dictionaries(model=None,
                             allow_update=True)
         #  freqxiao10->0 所以k+1
         w2indx = {v: k+1 for k, v in list(gensim_dict.items())}#所有頻數超過10的詞語的索引,(k->v)=>(v->k)
-        w2vec = {word: model[word] for word in list(w2indx.keys())}#所有頻數超過10的詞語的詞向量, (word->model(word))
+        #DeprecationWarning: Call to deprecated `__getitem__` (Method will be removed in 4.0.0, use self.wv.__getitem__() instead).
+        w2vec = {word: model.wv[word] for word in list(w2indx.keys())}#所有頻數超過10的詞語的詞向量, (word->model(word))
 
         def parse_dataset(combined): # 閉包-->臨時使用
             ''' Words become integers
@@ -66,8 +71,10 @@ def input_transform(string):
 
 def lstm_predict(strings):
     print('loading model......')
+    yaml.warnings({'YAMLLoadWarning': False})
     with open('../model/lstm.yml', 'r') as f:
-        yaml_string = yaml.load(f)
+        #YAMLLoadWarning: calling yaml.load() without Loader=... is deprecated, as the default Loader is unsafe. Please read https://msg.pyyaml.org/load for full details.
+        yaml_string = yaml.load(f, Loader=yaml.FullLoader)
     model = model_from_yaml(yaml_string)
 
     print('loading weights......')
